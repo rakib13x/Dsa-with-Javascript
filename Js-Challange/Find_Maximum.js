@@ -1,6 +1,6 @@
 function findMaxElement(arr) {
   if (arr.length === 0) {
-    console.log("Your Input Element is empty.");
+    console.log("Your Array Element is empty.");
     return;
   }
 
