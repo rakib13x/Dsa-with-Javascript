@@ -90,26 +90,30 @@ function insert(list, index, value) {
 }
 
 function remove(list, index) {
-  if (index === 0) return shift(list);
   if (index < 0 || index >= list.length) return [undefined, list];
-  if (index === list.length - 1) return pop(list);
 
-  const prev = get(list, index - 1);
-  if (prev === null || prev.next === null) return [undefined, list];
-
-  const nodeToRemove = prev.next;
-  prev.next = nodeToRemove.next;
-
-  if (index === list.length - 1) {
-    list.tail = prev;
+  if (index === 0) {
+    const removedNode = list.head;
+    const newHead = list.head.next;
+    return [
+      removedNode,
+      { head: newHead, tail: list.tail, length: list.length - 1 },
+    ];
   }
 
-  list.length--;
+  let current = list.head;
+  let prev = null;
 
-  return [
-    nodeToRemove,
-    { head: list.head, tail: list.tail, length: list.length },
-  ];
+  for (let i = 0; i < index; i++) {
+    prev = current;
+    current = current.next;
+  }
+
+  prev.next = current.next;
+
+  const newTail = index === list.length - 1 ? prev : list.tail;
+
+  return [current, { head: list.head, tail: newTail, length: list.length - 1 }];
 }
 
 function reverse(list) {
@@ -128,6 +132,18 @@ function reverse(list) {
   return { head: prev, tail: newTail, length: list.length };
 }
 
+function printLinkedList(list) {
+  let current = list.head;
+  let values = [];
+
+  while (current) {
+    values.push(current.value);
+    current = current.next;
+  }
+
+  return values.join(" -> ");
+}
+
 let myLinkedList = createLinkedList(4);
 myLinkedList = push(myLinkedList, 4);
 myLinkedList = push(myLinkedList, 6);
@@ -135,11 +151,17 @@ myLinkedList = push(myLinkedList, 7);
 myLinkedList = push(myLinkedList, 8);
 myLinkedList = push(myLinkedList, 9);
 myLinkedList = push(myLinkedList, 10);
+
+console.log("Original List:");
+console.log(printLinkedList(myLinkedList));
+
 const [removedNode, updatedList] = remove(myLinkedList, 4);
 console.log(
-  `Removed node value: ${removedNode ? removedNode.val : "undefined"}`
+  `Removed node value: ${removedNode ? removedNode.value : "undefined"}`
 );
+console.log("Updated List:");
 console.log(printLinkedList(updatedList));
-myLinkedList = reverse(myLinkedList);
 
-console.log(myLinkedList);
+myLinkedList = reverse(myLinkedList);
+console.log("Reversed List:");
+console.log(printLinkedList(myLinkedList));
