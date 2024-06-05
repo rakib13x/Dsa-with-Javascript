@@ -52,7 +52,7 @@ function shift(list) {
     {
       head: list.head.next,
       tail: list.length === 1 ? null : list.tail,
-      lenght: list.length - 1,
+      length: list.length - 1,
     },
   ];
 }
@@ -77,14 +77,14 @@ function set(list, index, value) {
 }
 
 function insert(list, index, value) {
-  if (index === 0) return unshift(value, list);
+  if (index === 0) return unShift(value, list);
   if (index < 0 || index > list.length) return false;
-  if (index === list.length) return pop(value, list);
+  if (index === list.length) return push(value, list);
 
   const newNode = createNode(value);
   const prev = get(list, index - 1);
-  prev.next = newNode.next;
-  newNode.next = prev;
+  newNode.next = prev.next;
+  prev.next = newNode;
 
   return { head: list.head, tail: list.tail, length: list.length + 1 };
 }
@@ -110,6 +110,7 @@ function remove(list, index) {
   }
 
   prev.next = current.next;
+  current.next = null;
 
   const newTail = index === list.length - 1 ? prev : list.tail;
 
