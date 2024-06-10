@@ -21,8 +21,4 @@
 
 console.log(a);
 
-function hello() {
-  a = 20;
-  var a;
-  console.log(a);
-}
+function hello() {}

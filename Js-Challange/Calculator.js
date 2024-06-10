@@ -1,3 +1,4 @@
+import something from "";
 function calculator(num1, num2, operator) {
   let result;
   switch (operator) {
