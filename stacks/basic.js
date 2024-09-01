@@ -24,7 +24,6 @@ class Stack {
     this.length++;
     return this;
   }
-
   pop() {
     if (this.length === 0) {
       return undefined;
