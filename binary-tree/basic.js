@@ -44,6 +44,28 @@ class BST {
       }
     }
   }
+
+  contain(value) {
+    if (this.root === null) return false;
+    let temp = this.root;
+    while (temp) {
+      if (value < temp.value) {
+        temp = temp.left;
+      } else if (value > temp.value) {
+        temp = temp.right;
+      } else {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  minValueNode(currentNode) {
+    while (currentNode.left != null) {
+      currentNode = currentNode.left;
+    }
+    return currentNode;
+  }
 }
 
 let myTree = new BST();
@@ -54,5 +76,9 @@ myTree.insert(22);
 myTree.insert(24);
 myTree.insert(15);
 myTree.insert(18);
+myTree.contain(18);
 
 console.log(myTree);
+console.log(myTree.contain(18));
+console.log(myTree.minValueNode(myTree.root));
+console.log(myTree.minValueNode(myTree.root.right));
