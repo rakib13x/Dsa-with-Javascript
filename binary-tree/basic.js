@@ -66,6 +66,21 @@ class BST {
     }
     return currentNode;
   }
+
+  bfs() {
+    let currentNode = this.root;
+    let queue = [];
+    let results = [];
+    queue.push(currentNode);
+
+    while (queue.length) {
+      currentNode = queue.shift();
+      results.push(currentNode.value);
+      if (currentNode.left) queue.push(currentNode.left);
+      if (currentNode.right) queue.push(currentNode.right);
+    }
+    return results;
+  }
 }
 
 let myTree = new BST();
@@ -82,3 +97,4 @@ console.log(myTree);
 console.log(myTree.contain(18));
 console.log(myTree.minValueNode(myTree.root));
 console.log(myTree.minValueNode(myTree.root.right));
+console.log(myTree.bfs());
