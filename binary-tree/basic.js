@@ -81,6 +81,18 @@ class BST {
     }
     return results;
   }
+
+  dfsPreOrder() {
+    let results = [];
+
+    function traverse(currentNode) {
+      results.push(currentNode.left);
+      if (currentNode.left) traverse(currentNode.left);
+      if (currentNode.right) traverse(currentNode.right);
+    }
+    traverse(this.root);
+    return results;
+  }
 }
 
 let myTree = new BST();

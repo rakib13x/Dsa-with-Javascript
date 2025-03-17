@@ -42,6 +42,62 @@ class Graph {
     delete this.adjacencyList[vertex];
     return this;
   }
+
+  dfsIterative(start) {
+    let stack = [start];
+    let visited = new Set();
+    let result = []; //to see the result
+    while (stack.length > 0) {
+      let vertex = stack.pop();
+      if (!visited.has(vertex)) {
+        visited.add(vertex);
+        result.push(vertex);
+        console.log(vertex);
+        for (let neighbor of this.adjacencyList[vertex]) {
+          stack.push(neighbor);
+        }
+      }
+    }
+    return result;
+  }
+
+  bfsIterative(start) {
+    let queue = [start];
+    let visited = new Set();
+    let result = [];
+
+    while (queue.length > 0) {
+      let vertex = queue.shift();
+      if (!visited.has(vertex)) {
+        visited.add(vertex);
+        console.log(vertex);
+        result.push(vertex);
+        for (let neighbor of this.adjacencyList[vertex]) {
+          queue.push(neighbor);
+        }
+      }
+    }
+
+    return result;
+  }
+
+  dfsIterative1(start) {
+    let stack = [start];
+    let visited = new Set();
+    let result = [];
+    while (stack.length > 0) {
+      let vertex = stack.pop();
+      if (!visited.has(vertex)) {
+        visited.add(vertex);
+        console.log(vertex);
+        result.push(vertex);
+        for (let neighbor of this.adjacencyList[vertex]) {
+          stack.push(neighbor);
+        }
+      }
+    }
+    return result;
+  }
 }
 
 let myGraph = new Graph();
@@ -64,5 +120,7 @@ myGraph.addEdge("A", "D");
 myGraph.addEdge("B", "D");
 myGraph.addEdge("C", "D");
 myGraph.removeVertex("D");
+console.log(myGraph.dfsIterative("A")); //showing undefined
+console.log(myGraph.bfsIterative("A")); //showing undefined
 
 console.log(myGraph);

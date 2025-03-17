@@ -2,17 +2,17 @@ class HashTable {
   constructor(size = 7) {
     this.dataMap = new Array(size);
   }
+
   _hash(key) {
     let hash = 0;
     for (let i = 0; i < key.length; i++) {
-      hash = (hash + key.charCodeAt(i)) % this.dataMap.length;
+      hash = (hash + key.charCodeAt(i) * 23) % this.dataMap.length;
     }
     return hash;
   }
 
   set(key, value) {
     let index = this._hash(key);
-
     if (!this.dataMap[index]) {
       this.dataMap[index] = [];
     }
@@ -32,29 +32,15 @@ class HashTable {
     return undefined;
   }
 
-  key() {
-    let allkeys = [];
+  keys() {
+    let allKeys = [];
     for (let i = 0; i < this.dataMap.length; i++) {
       if (this.dataMap[i]) {
         for (let j = 0; j < this.dataMap[i].length; j++) {
-          allkeys.push(this.dataMap[i][j][0]);
+          allKeys.push(this.dataMap[i][j][0]);
         }
       }
     }
-    return allkeys;
+    return allKeys;
   }
 }
-let myHashTable = new HashTable();
-myHashTable.set("rakib", 50);
-myHashTable.set("rakib", 50);
-myHashTable.set("rakib", 50);
-myHashTable.set("Sakib", 90);
-myHashTable.set("Asif", 100);
-
-let getMyHashTable = myHashTable.get("Sakib");
-let keysMyHashTable = myHashTable.key();
-console.log(keysMyHashTable);
-
-console.log(getMyHashTable);
-
-console.log(myHashTable);
